@@ -26,13 +26,9 @@
       const computer =
         lang[getRandomIntInclusive(indexOfFirstElem, indexOfLastElem)];
       let player;
-      let resOfGame = '';
+      let resOfGame;
 
-      if (lang === FIGURES_ENG) {
-        player = prompt('rock, scissors, paper?');
-      } else {
-        player = prompt('камень, ножницы, бумага?');
-      }
+      player = prompt(lang.join(', '));
 
       if (player === '') {
         return start();
@@ -40,6 +36,7 @@
 
       if (player === null) {
         const isGoOut = confirm('Вы точно хотите покинуть игру?');
+
         if (isGoOut) {
           alert(`
         Результат:
@@ -51,21 +48,16 @@
         }
       }
 
-      player = lang.find(item =>
-        item.startsWith(player.toLowerCase()));
-
+      player = lang.find(item => item.startsWith(player.toLowerCase()));
       if (!player) {
         return start();
       }
 
       if (player[0] === computer[0]) {
         resOfGame = 'Ничья';
-      } else if (player[0] === 'к' && computer[0] === 'н' ||
-        player[0] === 'r' && computer[0] === 's' ||
-        player[0] === 'н' && computer[0] === 'б' ||
-        player[0] === 's' && computer[0] === 'p' ||
-        player[0] === 'б' && computer[0] === 'к' ||
-        player[0] === 'p' && computer[0] === 'r') {
+      } else if (player[0] && computer[1] ||
+        player[1] && computer[2] ||
+        player[2] && computer[0]) {
         result.player++;
         resOfGame = 'Вы выйграли';
       } else {
